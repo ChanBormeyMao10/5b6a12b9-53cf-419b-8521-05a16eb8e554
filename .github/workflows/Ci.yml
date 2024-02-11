@@ -31,3 +31,5 @@ jobs:
 
     - name: Run UnitTests
       run: dotnet test K9.MaxAscend\K9.MaxAscend.Test\bin\Debug\K9.MaxAscend.Test.dll --filter Name~Test
+    - name: Run Code Coverage Report
+      run: K9.MaxAscend\coverage.bat
