@@ -11,6 +11,7 @@ namespace K9.MaxAscend.Test
     public class Tests
     {
         /* Test case 1 */
+        [TestCase("6 1 5 9 2", ExpectedResult = "1 5 9")]
         [Test]
         public string TestFindBiggestSortedSublist(string input)
         {
