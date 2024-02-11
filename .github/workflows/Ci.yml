@@ -1,0 +1,33 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: CI
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup MSbuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2.0.0
+      
+    - name: Restore Nuget Packages
+      run: nuget restore K9.MaxAscend\K9.MaxAscend.sln
+
+    - name: Build Solution
+      run: msbuild K9.MaxAscend\K9.MaxAscend.sln
+
+    - name: Run UnitTests
+      run: dotnet test K9.MaxAscend\K9.MaxAscend.Test\bin\Debug\K9.MaxAscend.Test.dll --filter Name~Test
