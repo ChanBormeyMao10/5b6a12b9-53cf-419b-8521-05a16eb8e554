@@ -23,6 +23,14 @@ namespace K9.MaxAscend
                 if (numList[i] < numList[i + 1])
                 {
                     potentialResultListCurrent.Add(numList[i]);
+                    if(potentialResultListCurrent.Count == potentialResultListBiggest.Count && i + 1 == numList.Count() - 1)
+                    {
+                        potentialResultListCurrent.Add(numList[i+1]);
+                        if (potentialResultListCurrent.Count > potentialResultListBiggest.Count)
+                        {
+                            potentialResultListBiggest = potentialResultListCurrent;
+                        }
+                    }
                 }
                 else
                 {
