@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,12 +12,22 @@ namespace K9.MaxAscend.Test
     [TestFixture]
     public class Tests
     {
-        /* Test case 1 */
-        [TestCase("6 1 5 9 2", ExpectedResult = "1 5 9")]
+        [SetUp]
+        public void Setup()
+        {
+           
+        }
+
         [Test]
+        [TestCaseSource(typeof(FactoryClass), "TestCases")]
         public string TestFindBiggestSortedSublist(string input)
         {
             return MaxAscend.Main(input);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
         }
     }
 }
