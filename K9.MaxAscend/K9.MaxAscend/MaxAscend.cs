@@ -12,37 +12,37 @@ namespace K9.MaxAscend
         {
             int[] inputNumbers = Array.ConvertAll(input.Split(' '), int.Parse);
             return string.Join(" ", FindBiggestSortedSublist(inputNumbers));
-
         }
+
         public static List<int> FindBiggestSortedSublist(int[] numList)
         {
-            List<int> potentialResultListCurrent = new List<int>();
-            List<int> potentialResultListBiggest = new List<int>();
-            for (int i = 0; i < numList.Count() - 1; i++)
+            List<int> longestAscendingSublist = new List<int>();
+            List<int> currentAscendingSublist = new List<int>();
+
+            for (int i = 0; i < numList.Length; i++)
             {
-                if (numList[i] < numList[i + 1])
+                if (currentAscendingSublist.Count == 0 || numList[i] > currentAscendingSublist[currentAscendingSublist.Count - 1])
                 {
-                    potentialResultListCurrent.Add(numList[i]);
-                    if(potentialResultListCurrent.Count == potentialResultListBiggest.Count && i + 1 == numList.Count() - 1)
-                    {
-                        potentialResultListCurrent.Add(numList[i+1]);
-                        if (potentialResultListCurrent.Count > potentialResultListBiggest.Count)
-                        {
-                            potentialResultListBiggest = potentialResultListCurrent;
-                        }
-                    }
+                    currentAscendingSublist.Add(numList[i]);
                 }
                 else
                 {
-                    potentialResultListCurrent.Add(numList[i]);
-                    if (potentialResultListCurrent.Count > potentialResultListBiggest.Count)
+                    if (currentAscendingSublist.Count > longestAscendingSublist.Count)
                     {
-                        potentialResultListBiggest = potentialResultListCurrent;
+                        longestAscendingSublist = new List<int>(currentAscendingSublist);
                     }
-                    potentialResultListCurrent = new List<int>();
+                    currentAscendingSublist.Clear();
+                    currentAscendingSublist.Add(numList[i]);
                 }
             }
-            return potentialResultListBiggest;
+
+            // Check if the last sequence is the longest
+            if (currentAscendingSublist.Count > longestAscendingSublist.Count)
+            {
+                longestAscendingSublist = new List<int>(currentAscendingSublist);
+            }
+
+            return longestAscendingSublist;
         }
     }
 }
